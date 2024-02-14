@@ -1,23 +1,84 @@
 import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import questions from './data/questions';
 
 function App() {
+  let amounts = [200, 400, 600, 800, 1000];
+  let categories = questions.map((dataObject) => {
+    return dataObject.category;
+  });
+
+  let [clickableCells, setClickableCells] = useState([]);
+
+  useEffect(() => {
+    let tableArray = [];
+    for (let i = 0; i < amounts.length; i++) {
+      let tableRow = [];
+      for (let j = 0; j < categories.length; j++) {
+        tableRow.push(true);
+      }
+      tableArray.push(tableRow);
+    }
+
+    setClickableCells(tableArray);
+  },[]);
+
+
+  const handleCellClick = (row, column) => {
+    // Set value for given cell to false (aka unclickable)
+    let clickableCellsCopy = [...clickableCells];
+    clickableCellsCopy[row][column] = false;
+    setClickableCells(clickableCellsCopy);
+  }
+
+  const isCellClickable = (row, column) => {
+    return clickableCells[row][column];
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              {
+                categories.map((categoryName) => {
+                  return(
+                    <th>{categoryName}</th>
+                  )
+                })
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              clickableCells.map((row, rowIndex) => {
+                return (
+                  <tr>
+                    {
+                      row.map((cellValue, colIndex) => {
+                        return (
+                          <td
+                            onClick={() => {
+                              handleCellClick(rowIndex, colIndex);
+                            }}
+                          >
+                            {
+                              cellValue === true ? 
+                                `$${amounts[rowIndex]}` : ''
+                            }
+                          </td>
+                        )
+                      })
+                    }
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
