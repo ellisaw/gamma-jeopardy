@@ -37,15 +37,15 @@ function App() {
   }
 
   return (
-    <div className="App">
+    //<div className="App">
       <div className="table-container">
-        <table>
+        <table className="table">
           <thead>
             <tr>
               {
                 categories.map((categoryName) => {
                   return(
-                    <th>{categoryName}</th>
+                    <th className='header-cell'>{categoryName}</th>
                   )
                 })
               }
@@ -58,18 +58,17 @@ function App() {
                   <tr>
                     {
                       row.map((cellValue, colIndex) => {
-                        return (
+                        return cellValue === true ?
                           <td
+                            className='table-cell active'
                             onClick={() => {
                               handleCellClick(rowIndex, colIndex);
                             }}
                           >
-                            {
-                              cellValue === true ? 
-                                `$${amounts[rowIndex]}` : ''
-                            }
+                            ${amounts[rowIndex]}
                           </td>
-                        )
+                         :
+                          <td className='table-cell disabled'></td>
                       })
                     }
                   </tr>
@@ -79,7 +78,7 @@ function App() {
           </tbody>
         </table>
       </div>
-    </div>
+    //</div>
   );
 }
 
