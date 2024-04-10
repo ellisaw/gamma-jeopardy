@@ -11,7 +11,7 @@ const questions = [
                 answer: 'answer-2'
             },
             {
-                question: 'question-2',
+                question: 'question-3',
                 answer: 'answer-3'
             },
             {
@@ -36,7 +36,7 @@ const questions = [
                 answer: 'answer-2'
             },
             {
-                question: 'question-2',
+                question: 'question-3',
                 answer: 'answer-3'
             },
             {
@@ -61,7 +61,7 @@ const questions = [
                 answer: 'answer-2'
             },
             {
-                question: 'question-2',
+                question: 'question-3',
                 answer: 'answer-3'
             },
             {
@@ -86,7 +86,7 @@ const questions = [
                 answer: 'answer-2'
             },
             {
-                question: 'question-2',
+                question: 'question-3',
                 answer: 'answer-3'
             },
             {
@@ -111,7 +111,7 @@ const questions = [
                 answer: 'answer-2'
             },
             {
-                question: 'question-2',
+                question: 'question-3',
                 answer: 'answer-3'
             },
             {
@@ -136,7 +136,7 @@ const questions = [
                 answer: 'answer-2'
             },
             {
-                question: 'question-2',
+                question: 'question-3',
                 answer: 'answer-3'
             },
             {

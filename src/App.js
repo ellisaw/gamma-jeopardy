@@ -10,6 +10,10 @@ function App() {
   });
 
   let [clickableCells, setClickableCells] = useState([]);
+  let [currentQuestion, setCurrentQuestion] = useState('');
+  let [currentAnswer, setCurrentAnswer] = useState('');
+  let [showQuestion, setshowQuestion] = useState(false);
+  let [showAnswer, setShowAnswer] = useState(false);
 
   useEffect(() => {
     let tableArray = [];
@@ -30,6 +34,24 @@ function App() {
     let clickableCellsCopy = [...clickableCells];
     clickableCellsCopy[row][column] = false;
     setClickableCells(clickableCellsCopy);
+    // Find the question and answer associated with the row and column
+    const category = questions[column];
+    const question = category.questions[row].question;
+    setCurrentQuestion(question);
+    setshowQuestion(true);
+    const answer = category.questions[row].answer;
+    setCurrentAnswer(answer);
+  }
+
+  const handleQuestionClick = () => {
+    setshowQuestion(false);
+    setCurrentQuestion('');
+    setShowAnswer(true);
+  }
+
+  const handleAnswerClick = () => {
+    setShowAnswer(false);
+    setCurrentAnswer('');
   }
 
   const isCellClickable = (row, column) => {
@@ -37,7 +59,7 @@ function App() {
   }
 
   return (
-    //<div className="App">
+    <div className="app">
       <div className="table-container">
         <table className="table">
           <thead>
@@ -45,7 +67,9 @@ function App() {
               {
                 categories.map((categoryName) => {
                   return(
-                    <th className='header-cell'>{categoryName}</th>
+                    <th className='header-cell'>
+                      {categoryName}
+                    </th>
                   )
                 })
               }
@@ -64,6 +88,9 @@ function App() {
                             onClick={() => {
                               handleCellClick(rowIndex, colIndex);
                             }}
+                            onKeyDown={(e) => {
+                              console.log(e);
+                            }}
                           >
                             ${amounts[rowIndex]}
                           </td>
@@ -78,7 +105,27 @@ function App() {
           </tbody>
         </table>
       </div>
-    //</div>
+      {
+        showQuestion ? 
+          <div
+            className='question-card'
+            onClick={() => handleQuestionClick()}
+          >
+            {currentQuestion}
+          </div> : 
+          null
+      }
+      {
+        showAnswer ?
+          <div
+            className='question-card'
+            onClick={() => handleAnswerClick()}
+          >
+            What is {currentAnswer}?
+          </div> : 
+          null
+      }
+    </div>
   );
 }
 
